@@ -5,6 +5,8 @@
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<title> Carte interactive </title>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
 		<!--[if lte IE 8]>
 			<script>alert("Your web browser does not work well with this application. Please upgrade it or choose another browser.");</script>
 		<![endif]-->
@@ -116,8 +118,12 @@
 			var watercolor = new L.TileLayer('http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
 				attribution: 'Cartographie : <a href="https://cartodream.wixsite.com/website-1">Cartodream</a> , <a href="https://www.openstreetmap.fr/">OSM</a>Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'});
 			// map.addLayer(watercolor);
-	
-											
+			var osm_normal = new L.TileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+				attribution: 'Cartographie : <a href="https://cartodream.wixsite.com/website-1">Cartodream</a> , <a href="https://www.openstreetmap.fr/">OSM</a>Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'});
+			// map.addLayer(watercolor);
+			var esri2 = new L.TileLayer('http://services.arcgisonline.com/arcgis/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
+				attribution: 'Cartographie : <a href="https://cartodream.wixsite.com/website-1">Cartodream</a> , <a href="https://www.openstreetmap.fr/">OSM</a>Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'});
+			// map.addLayer(watercolor);								
 			
 			//FIN TESTS
 			
@@ -126,6 +132,8 @@
 			"OpenStreet Map" : mapbox,
 			"Vue aérienne" : photos_aériennes,
 			"watercolor" : watercolor,
+			"OpenStreet Map1" :osm_normal,
+			"Esri2" :esri2,
 			};
 			 
 			//ajout des controles de la carte : zoom, échelle, contrôle des couches
@@ -312,8 +320,8 @@
 			function batimentsStyle(feature) {
 				return {weight: 2,
 						opacity: 1,
-						color: '#063970',
-						fillColor: '#063970',
+						color: '#8dbf17',
+						fillColor: '#8dbf17',
 						fillOpacity: 0.5,
 						interactive: false,
 				};
@@ -344,8 +352,8 @@
 				style: {weight: 100,
 						opacity: 1,
 						"weight": 100,
-						color: '#088A08',
-						fillColor: '#088A08',
+						color: '#09e309',
+						fillColor: '#09e309',
 						fillOpacity: 0.5,
 						clickable: true,
 				
@@ -494,7 +502,7 @@
 					var tabPhotos = photos.split(";");
 					if (tabPhotos.length == 1) { // s'il existe une seule photo, on l'affiche simplement
 						if (tabPhotos[0].indexOf("http",0) != -1) {
-							popupContent += '<center><img style="max-height: 250px; max-width:290px !important;" src="'+tabPhotos[0]+'"></center>';
+							popupContent += '<img style="max-height: 100px;float:right; max-width:290px !important;" src="'+tabPhotos[0]+'">';
 						} else {
 							popupContent += '<center><div style="width:290px; height: 250px;"><img style="max-height: 250px; max-width:290px !important;" src="image/'+tabPhotos[0]+'"></div></center>';
 						}
@@ -521,19 +529,16 @@
 					popupContent += '<center>'+currentFeature.properties.copyright+'</center><br>';
 				if ((currentFeature.properties.descriptif != null) && (currentFeature.properties.descriptif != "")) // si l'entité courante a un descriptif non vide
 					popupContent += currentFeature.properties.descriptif+'<br><br>'; // on ajoute ce descriptif au contenu de la popup
-				if ((currentFeature.properties.adresse != null) && (currentFeature.properties.adresse != ""))
-					popupContent += currentFeature.properties.adresse+'<br>';
-				if ((currentFeature.properties.cp != null) && (currentFeature.properties.cp != ""))
-					popupContent += currentFeature.properties.cp+" ";
-				if ((currentFeature.properties.commune != null) && (currentFeature.properties.commune != "")) // si l'entité courante est rattachée à une commune
-					popupContent += currentFeature.properties.commune+'<br>'; // on ajoute cette commune au contenu de la popup
-				if ((currentFeature.properties.tel != null) && (currentFeature.properties.tel != ""))
+	
+				if ((currentFeature.properties.accessibilité != null) && (currentFeature.properties.accessibilité != ""))
+					popupContent += '<b>Accessible : </b>'+currentFeature.properties.accessibilité+'<br>';
 					popupContent += '<b>Tél : </b>'+currentFeature.properties.tel+'<br>';
-				if ((currentFeature.properties.mail != null) && (currentFeature.properties.mail != ""))
 					popupContent += '<b>Email : </b>'+currentFeature.properties.mail+'<br>';
+					
 				if ((currentFeature.properties.site_web != null) && (currentFeature.properties.site_web != "")) // si l'entité courante a un lien
-					popupContent += '<b>Plus d\'infos : </b><a target="_blank" href="'+currentFeature.properties.site_web+'">'+currentFeature.properties.site_web+'</a><br>'; // on ajoute ce lien au contenu de la popup
+					popupContent += '<b>Plus d\'infos : </b><a target="_blank" href="'+currentFeature.properties.site_web+'"><i><u>'+currentFeature.properties.lien+'</i></u></a><br>'; // on ajoute ce lien au contenu de la popup
 				// dans le tableau poiLayers, on affecte au marker de l'entité correspondante une popup dont le contenu vient d'être défini
+				popupContent += '<b>Coordonnées GPS : </b>'+currentFeature.properties.coordonnées+'<br>';
 				if (typeof(poiLayers[currentFeature.properties.id].marker)!="undefined") {
 				poiLayers[currentFeature.properties.id].marker.bindPopup (popupContent, popupOptions);
 				// ajoute un événement "popupopen" au marker qui va exécuter la fonction suivante une fois la popup ouverte
