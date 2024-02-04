@@ -388,7 +388,7 @@
 						popupContent += '<b>Source des données :</b> '+feature.properties.source+'<br>';
 					}
 				}
-				layer.bindPopup(popupContent);
+				//layer.bindPopup(popupContent);
 			}
 			
 				// Crée un style ( une couleur différente pour chacun) pour les circuits VTT
@@ -408,7 +408,7 @@
 				style: VTTStyle, 
 				onEachFeature: onEachFeature3
 			});
-			routeLayers["circuits_vtt"] = circuits_vtt;
+			//routeLayers["circuits_vtt"] = circuits_vtt;
 			
 			//  fin circuits vtt  -----------------------------------------------		
 			
@@ -634,9 +634,9 @@
 */
 			var selectCategories = ''
 
-			selectCategories += '<li style="padding-left: 0.4rem"><label style="all:unset; cursor: pointer;"><input id="circuits_vtt" type="checkbox" onclick="displayRouteLayer(\'circuits_vtt\')"><span style="position:relative; width:25px; height:18px; display:inline-block; margin-left:2px;"><span style="position:absolute; display:inline-block; height:12.5px; width:100%; border-bottom: 2px solid #FF0000"></span></span> Circuits de randonnées</label></li>'
+			//selectCategories += '<li style="padding-left: 0.4rem"><label style="all:unset; cursor: pointer;"><input id="circuits_vtt" type="checkbox" onclick="displayRouteLayer(\'circuits_vtt\')"><span style="position:relative; width:25px; height:18px; display:inline-block; margin-left:2px;"><span style="position:absolute; display:inline-block; height:12.5px; width:100%; border-bottom: 2px solid #FF0000"></span></span> Circuits de randonnées</label></li>'
 			
-			selectCategories +='<li style="border-bottom: 1px solid white; padding-left: 0.4rem"><label style="all:unset; cursor: pointer;"><input id="sentiers_pdipr" type="checkbox" onclick="displayRouteLayer(\'sentiers_pdipr\')"><span style="position:relative; width:25px; height:18px; display:inline-block; margin-left:2px;"><span style="position:absolute; display:inline-block; height:12.5px; width:100%; border-bottom: 2px solid #6C0278"></span></span> Circuits VTT</label></li>'
+			//selectCategories +='<li style="border-bottom: 1px solid white; padding-left: 0.4rem"><label style="all:unset; cursor: pointer;"><input id="sentiers_pdipr" type="checkbox" onclick="displayRouteLayer(\'sentiers_pdipr\')"><span style="position:relative; width:25px; height:18px; display:inline-block; margin-left:2px;"><span style="position:absolute; display:inline-block; height:12.5px; width:100%; border-bottom: 2px solid #6C0278"></span></span> Circuits VTT</label></li>'
 
 			// Ajout de toutes les catégories au menu de gauche
 			for (i in tabCategories){
