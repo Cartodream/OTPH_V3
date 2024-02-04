@@ -765,15 +765,9 @@
 	</head>
 	<body onload="initialize();">
 		<div class="off-canvas-wrap offcanvas-overlap" data-offcanvas style="width: 100%; z-index:1;"> 
-			<nav class="tab-bar"> <!-- barre de titre -->
-				<section class="middle tab-bar-section"; id="menu_gauche"> <!-- bouton menu gauche -->
-					<a class="left-off-canvas-toggle"><img class="hide-for-small-only" src="image/btn_filtrer_categories.png"><img class="show-for-small-only" src="image/btn_filtrer_categories_icon.png"></a>
-				</section>
-				<section class="middle tab-bar-section"> <!-- zone de titre -->
-					<img data-interchange="[image/titre_petit.png, (small)], [image/titre_moyen.png, (medium)], [image/titre_grand.png, (large)]">
-				</section>
-				<section class="right-small" id="menu_droit"> <!-- bouton menu droit -->
-					<a style="cursor: default;" class="right-off-canvas-toggle"><img class="hide-for-small-only" src="image/btn_droit_vierge.png"><img class="show-for-small-only" src="image/btn_icon_droit_vierge.png"></a>
+			<nav class="tab-bar">
+				<section class="left-small" id="menu_gauche"> <!-- bouton menu gauche -->
+					<a class="left-off-canvas-toggle"><img id="toggleButton" class="hide-for-small-only" src="image/btn_filtrer_categories.png"><img class="show-for-small-only" src="image/btn_filtrer_categories_icon.png"></a>
 				</section>
 			</nav>
 			<div class="inner-wrap">
@@ -791,7 +785,27 @@
 		</div>
 		<!-- création des bulles d'aide -->
 		
-		
+		<script>
+			// Sélectionnez l'image et le panneau latéral
+			const toggleButton = document.getElementById('toggleButton');
+			const left-panel= document.getElementById('left-panel');
+			const mainContent = document.getElementById('main-content');
+	
+			// Ajoutez un écouteur d'événements au clic sur l'image
+			toggleButton.addEventListener('click', () => {
+				// Vérifiez si le panneau latéral est actuellement ouvert
+				const isleft-panelOpen = left-panel.style.left === '0px';
+	
+				// Si le panneau latéral est ouvert, fermez-le; sinon, ouvrez-le
+				if (isSidebarOpen) {
+					sidebar.style.left = '-200px';
+					mainContent.style.marginLeft = '0';
+				} else {
+					sidebar.style.left = '0';
+					mainContent.style.marginLeft = '200px';
+				}
+			});
+		</script>
 
 		<script src="script/modernizr.js"></script>
 		<script src="script/jquery.js"></script>
@@ -799,19 +813,14 @@
 		<!--<script src="js/foundation/vendor/jquery.cookie.js"></script>-->
 		<script src="script/foundation.min.js"></script>
 		<script>
-			function onRideEnded() { // fonction appelée à la fin de l'affichage des bulles d'aide : on ferme les menus
-				$('.off-canvas-wrap').foundation('offcanvas', 'hide', 'offcanvas-overlap');
-				//$.cookie('gmf-joyride', 'ridden', {expires: 7});
-			}
-
 			$(document).foundation({
 			  offcanvas : {
 				// Sets method in which offcanvas opens.
 				// [ move | overlap_single | overlap ]
-				open_method: 'overlap_single', 
+				open_method: 'overlap', 
 				// Should the menu close when a menu link is clicked?
 				// [ true | false ]
-				close_on_click : false
+				close_on_click : true
 			  },
 			  // définition des options pour les bulles d'aide
 			  joyride: {
@@ -824,14 +833,9 @@
 			  }
 			})
 
-			/*if(! $.cookie('gmf-joyride'))*/
-			$(document).foundation('joyride', 'start');
+			
 
-			$(".joyride-close-tip").click(function() {
-			   onRideEnded();
-			});
-			$('.off-canvas-wrap').foundation('offcanvas', 'show', 'offcanvas-overlap');
-			$('#modal-help-accueil').foundation('reveal', 'open');
+		
 
 		</script>
 	</body>
